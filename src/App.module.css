@@ -51,21 +51,20 @@ button{
 }
 table{
   margin-top: 0.5em;
-  background-color: bisque;
+  background-color: white;
 }
-td{
+.UserList td{
   padding: 0.5em;
-  width: 1em;
+  min-width: 2em;
   height: 1em;
-  font-size: inherit;
 }
 .settings{
   cursor: pointer;
 }
 .settingInput{
-  text-align: center;
   font-size: inherit;
-  font-weight: 500;
+  text-align: left;
+  font-weight: 600;
   overflow:hidden;
   border: 0px;
   outline:none;

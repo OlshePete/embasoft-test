@@ -1,3 +1,4 @@
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import s from '../App.module.css';
@@ -9,10 +10,6 @@ function UserTable({ users }) {
 
     const [usersMembers, setUsersMembers] = useState(users);
     const [userForChange, setUserForChange] = useState();
-
-    let usernameRef = React.useRef();
-    let firstnameRef = React.useRef();
-    let lastnameRef = React.useRef();
 
     console.log("USERS", usersMembers)
     useEffect(() => {
@@ -40,9 +37,6 @@ function UserTable({ users }) {
 
     const onConfirmClick = (id) => {
         let years = prompt(`Enter password for user ${userForChange.username}`);
-        console.log("onConfirmClick usersMembers", id)
-        console.log("onConfirmClick usersMembers to ", userForChange)
-
         const data = {
             id: userForChange.id,
             username: userForChange.username,
@@ -102,37 +96,35 @@ function UserTable({ users }) {
 
 
     return (
-        <table className="UsersList" border="1" width="100%" bgcolor="#FFFFFF"
-            bordercolor="#000000" cellSpacing="0" cellPadding="2" >
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User Name</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {usersMembers.map(item => (
-                    <tr key={item.id}>
-                        <td>{item.id}</td>
-                        {item.statusEditable ? <td> <input onChange={onChangeCurrentInput} name="username" className={s.settingInput} ref={usernameRef} value={userForChange.username} placeholder={item.username} type="text" /> </td> : <td>{item.username}</td>}
-                        {item.statusEditable ? <td> <input onChange={onChangeCurrentInput} name="first_name" className={s.settingInput} ref={firstnameRef} value={userForChange.first_name} placeholder={item.first_name} type="text" /> </td> : <td>{item.first_name}</td>}
-                        {item.statusEditable ? <td> <input onChange={onChangeCurrentInput} name="last_name" className={s.settingInput} ref={lastnameRef} value={userForChange.last_name} placeholder={item.last_name} type="text" /> </td> : <td>{item.last_name}</td>}
+        <div>
+            <TableContainer >
+                <Table className={s.table} aria-label="a dense table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="center">ID</TableCell>
+                            <TableCell align="center">User Name</TableCell>
+                            <TableCell align="center">First Name</TableCell>
+                            <TableCell align="center">Last Name</TableCell>
+                            <TableCell align="center" ></TableCell>
+                            <TableCell align="center" ></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {usersMembers.map((row) => (
+                            <TableRow key={row.name}>
+                                <TableCell align="center">{row.id}</TableCell>
+                                {row.statusEditable ? <TableCell align="center"> <input onChange={onChangeCurrentInput} name="username" className={s.settingInput} value={userForChange.username} placeholder={row.username} type="text" /> </TableCell> : <TableCell>{row.username} </TableCell> }
+                                {row.statusEditable ? <TableCell align="center"> <input onChange={onChangeCurrentInput} name="first_name" className={s.settingInput} value={userForChange.first_name} placeholder={row.first_name} type="text" /> </TableCell> : <TableCell>{row.first_name} </TableCell> }
+                                {row.statusEditable ? <TableCell align="center"> <input onChange={onChangeCurrentInput} name="last_name" className={s.settingInput}  value={userForChange.last_name} placeholder={row.last_name} type="text" /> </TableCell> : <TableCell>{row.last_name} </TableCell> }
+                                {row.statusEditable ? <TableCell className={s.setting} onClick={() => onConfirmClick(row.id)} >&#9989;</TableCell> : <TableCell className={s.setting} title="edit current member" onClick={() => onSettingsClick(row.id)} >&#9998;</TableCell>}
+                                {row.statusEditable ? <TableCell className={s.setting} onClick={() => onSettingsClick(row.id)} >&#10060;</TableCell> : <TableCell className={s.setting} title="delete current member" id={row.id} onClick={() => onDeleteClick(row.id)} >&#128465;</TableCell>}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
-                        <td>
-                            {item.statusEditable ? <div onClick={() => onConfirmClick(item.id)} className={s.settings} >&#9989;</div> : <div title="edit current member" onClick={() => onSettingsClick(item.id)} className={s.settings} >&#9998;</div>}
-                        </td>
-                        <td>
-                            {item.statusEditable ? <div onClick={() => onSettingsClick(item.id)} className={s.settings} >&#10060;</div> : <div title="delete current member" id={item.id} onClick={() => onDeleteClick(item.id)} className={s.settings} >&#128465;</div>}
-
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        </div>
     )
 }
 
