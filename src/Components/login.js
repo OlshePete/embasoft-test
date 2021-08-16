@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
 import s from '../App.module.css';
-import Button from '@material-ui/core/Button';
 import { getToken } from '../reducers/appReducer';
 
 
@@ -34,11 +33,10 @@ function Login() {
 
   return (
     <div className={s.login}>
-      Login Page
-      <div className={s.input}> <input type="text" ref={loginRef} name="loginText" className="login" /></div>
-      <div className={s.input}> <input type="password" ref={passwordRef} name="passwordText"  className="Password"/></div>
-
-      <div className={s.input}><Button variant="contained" onClick={sendRequest}>Login</Button></div>
+      <p>Login Page</p>
+      <input type="text" ref={loginRef} name="loginText" className="login" title="enter your login here"/>
+      <input type="password" ref={passwordRef} name="passwordText"  className="Password" title="enter your password here"/>
+      <button variant="contained" onClick={sendRequest} title="push for login">Login</button>
       </div>
   );
 }

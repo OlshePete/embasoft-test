@@ -40,24 +40,21 @@ function UsersList() {
 
   if (!appState.usersList || appState.usersList.length === 0) return <p>Нет данных.</p>
 
-  // const changeEditable = (obj) => {
-  //   setUsers(users.map((item) =>({
-  //     ...item,
-  //     statusEditable: true
-  //   }))
+  const changeEdit = () => {
+    !getAdd ?setGetAdd(true):setGetAdd(false)
 
+    }
 
-    // dispatch(deleteUser(e.target.id))
 // }
   return (
     <div>
-      <div>
-        <button onClick={()=> !getAdd ?setGetAdd(true):setGetAdd(false)}>{!getAdd ?"Create member":"Cancel"}</button>
+      <div className={s.formUsersList}>
+        <button onClick={changeEdit}>{!getAdd ?"Create member":"Cancel"}</button>
       </div>
-        {getAdd?  <UserAdd/> :
-      <div><div className={s.formSearch}> 
+        {getAdd?  <UserAdd changeEdit={changeEdit}/> :
+      <div className={s.formUsersTable}><div className={s.formSearch}> 
         <p>&#128269;</p><input type="search" onChange={onHandleChange} /></div>
-       <UserTable users={users} /></div>}
+       <UserTable  users={users} /></div>}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { postUser } from '../reducers/appReducer';
 
-function UserAdd() {
+function UserAdd({changeEdit}) {
     const dispatch = useDispatch();
     let usernameRef = React.useRef();
     let firstnameRef = React.useRef();
@@ -27,6 +27,7 @@ function UserAdd() {
         }
         console.log(data);
         dispatch(postUser(data));
+        changeEdit();
     }
 
     return (
